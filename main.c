@@ -16,12 +16,13 @@ int main()
 {
 	hash_table_t	*ht;
 
-	ht = hash_table_create(1024);
+	ht = hash_table_create(2048);
 	if (!ht)
 	{
 		write(2, "Error: Could not create hash table\n", 36);
 		return (1);
 	}
+
 	if (!handle_input(&ht))
 	{
 		// hash_table_delete(ht);

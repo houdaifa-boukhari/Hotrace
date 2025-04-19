@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 # include "./get_next_line/get_next_line.h"
-
+#include <sys/time.h> // for gettimeofday
 typedef struct hash_node_s
 {
 	 char *key;
@@ -23,6 +23,7 @@ typedef struct hash_table_s
 void ft_putstr_fd(char *str, int fd);
 bool	handle_input(hash_table_t **ht);
 hash_table_t    *hash_table_create(unsigned long int size);
+// unsigned long int hash_djb2(const  char *str);
 unsigned long int hash_djb2(const unsigned char *str);
 unsigned long int key_index(const unsigned char *key, unsigned long int size);
 int		hash_table_set(hash_table_t *ht, char *key, char *value);
