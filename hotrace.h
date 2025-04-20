@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hotrace.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aet-tale <aet-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 15:02:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 15:07:46 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:12:11 by aet-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ char					*hash_table_get(const t_hash_table *ht,
 							const char *key);
 // void	hash_table_delete(t_hash_table *ht);
 char					*get_line(void);
+int						ft_strcmp(const char *s1, const char *s2);
 
 #endif

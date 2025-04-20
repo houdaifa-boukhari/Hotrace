@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   utilice2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aet-tale <aet-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 15:10:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 15:10:18 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:12:29 by aet-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
+
+int ft_strcmp(const char *s1, const char *s2)
+{
+    const unsigned char *p1 = (const unsigned char *)s1;
+    const unsigned char *p2 = (const unsigned char *)s2;
+
+    while (*p1 && *p1 == *p2) {
+        p1++;
+        p2++;
+    }
+    return (*p1 - *p2);
+}
 
 char	*hash_table_get(const t_hash_table *ht, const char *key)
 {
@@ -23,7 +35,7 @@ char	*hash_table_get(const t_hash_table *ht, const char *key)
 	ptr = ht->array[idx];
 	while (ptr)
 	{
-		if (strcmp(ptr->key, key) == 0)
+		if (ft_strcmp(ptr->key, key) == 0)
 			return (ptr->value);
 		ptr = ptr->next;
 	}
@@ -41,7 +53,7 @@ int	hash_table_set(t_hash_table *ht, char *key, char *value)
 	hash = ht->array[idx];
 	while (hash)
 	{
-		if (strcmp(hash->key, key) == 0)
+		if (ft_strcmp(hash->key, key) == 0)
 			return (1);
 		hash = hash->next;
 	}
