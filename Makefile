@@ -1,4 +1,5 @@
 NAME = hotrace
+HEADER = hotrace.h
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -O3
 SRC = main.c hash_table.c utilice.c utilice1.c utilice2.c
@@ -10,8 +11,8 @@ all: $(NAME)
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o:%.cpp
-	$(CPP) $(CFLAGS) $< -c -o $@
+%.o:%.c $(HEADER)
+	$(CC) $(CFLAGS) $< -c -o $@
 
 clean:
 	$(RM) $(OBJS)

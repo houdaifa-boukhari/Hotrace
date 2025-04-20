@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:53:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 16:11:48 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:47:46 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,11 @@ bool	search_key(t_hash_table *ht)
 		tmp = hash_table_get(ht, line);
 		if (!tmp)
 		{
-			ft_putstr_fd(line, 2);
+			ft_putstr_fd(line, 2, 0);
 			write(2, ": Not found.\n", 13);
 		}
 		else
-		{
-			ft_putstr_fd(tmp, 1);
-			write(1, "\n", 1);
-		}
+			ft_putstr_fd(tmp, 1, 1);
 		free(line);
 	}
 	return (true);

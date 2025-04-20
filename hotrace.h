@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 15:02:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 15:55:50 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:33:30 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_input
 
 void					*ft_realloc(void *ptr, size_t old_size,
 							size_t new_size);
-void					ft_putstr_fd(char *str, int fd);
+void					ft_putstr_fd(char *str, int fd, int flag);
 bool					handle_input(t_hash_table **ht);
 t_hash_table			*hash_table_create(unsigned long int size);
 unsigned long int		hash_djb2(const unsigned char *str);
