@@ -7,7 +7,7 @@ def random_word(length=32):
 
 def generate_50mb_test(filename="test_1024b.htr"):
     written = 0 
-    target_bytes = 1024
+    target_bytes = 1024 * 1024 * 500
     keys = []
 
     with open(filename, "w") as f:
