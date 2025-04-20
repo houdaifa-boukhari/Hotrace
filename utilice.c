@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:43:45 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 13:00:25 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 13:08:30 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,57 +43,97 @@ void *my_memcpy(void *dest, const void *src, size_t n)
     }
     return dest;
 }
-
 #define READ_SIZE 8192
-#define LINE_MAX 1048576  // 1MB max line length
+#define INITIAL_ALLOC 128  // Start with smaller allocation
 
+// Custom realloc implementation
+void *my_realloc(void *ptr, size_t old_size, size_t new_size)
+{
+    // If new size is 0, act like free
+    if (new_size == 0)
+    {
+        if (ptr)
+            free(ptr);
+        return NULL;
+    }
+    
+    // Allocate new buffer
+    void *new_ptr = malloc(new_size);
+    if (!new_ptr)
+        return NULL;
+    
+    // If original pointer exists, copy data and free old buffer
+    if (ptr)
+    {
+        size_t copy_size = (old_size < new_size) ? old_size : new_size;
+        char *src = (char *)ptr;
+        char *dst = (char *)new_ptr;
+        
+        // Manual memory copy
+        for (size_t i = 0; i < copy_size; i++)
+            dst[i] = src[i];
+            
+        free(ptr);
+    }
+    
+    return new_ptr;
+}
+
+// Get a line from standard input
 char *get_line(void)
 {
     static char buffer[READ_SIZE];
     static ssize_t buf_len = 0;
     static ssize_t buf_pos = 0;
     
-    // Allocate memory only when needed
-    char *line = malloc(LINE_MAX);
+    // Initial allocation - start small and grow as needed
+    size_t alloc_size = INITIAL_ALLOC;
+    char *line = malloc(alloc_size);
     if (!line)
         return NULL;
     
     ssize_t line_len = 0;
+    int line_complete = 0;
     
-    // Copy chunks of data instead of byte-by-byte when possible
-    while (1)
+    while (!line_complete)
     {
         // If buffer is empty, refill it
         if (buf_pos >= buf_len)
         {
             buf_len = read(0, buffer, READ_SIZE);
             if (buf_len <= 0)
-                break;
+                break;  // End of file or error
             buf_pos = 0;
         }
         
-        // Calculate how many bytes we can copy at once
-        ssize_t remaining_in_buffer = buf_len - buf_pos;
-        ssize_t space_in_line = LINE_MAX - line_len - 1;
-        ssize_t chunk_size = remaining_in_buffer;
-        
-        // Look for newline in current buffer chunk
-        char *newline_pos = my_memchr(buffer + buf_pos, '\n', remaining_in_buffer);
-        if (newline_pos)
-            chunk_size = newline_pos - (buffer + buf_pos) + 1;
-        
-        // Don't copy more than we have space for
-        if (chunk_size > space_in_line)
-            chunk_size = space_in_line;
-        
-        // Copy the chunk
-        my_memcpy(line + line_len, buffer + buf_pos, chunk_size);
-        line_len += chunk_size;
-        buf_pos += chunk_size;
-        
-        // Check if we hit a newline or filled the buffer
-        if (newline_pos || line_len >= LINE_MAX - 1)
-            break;
+        // Process current buffer
+        while (buf_pos < buf_len && !line_complete)
+        {
+            // Check if we need to expand the line buffer
+            if (line_len + 1 >= alloc_size)
+            {
+                size_t new_size = alloc_size * 2;
+                char *new_line = my_realloc(line, alloc_size, new_size);
+                if (!new_line)
+                {
+                    free(line);
+                    return NULL;
+                }
+                line = new_line;
+                alloc_size = new_size;
+            }
+            
+            // Get current character
+            char c = buffer[buf_pos++];
+            line[line_len++] = c;
+            
+            // If newline, we're done with this line
+            if (c == '\n')
+            {
+                line_complete = 1;
+                break;
+            }
+        }
     }
     
     // Return NULL if no data was read
@@ -103,11 +143,15 @@ char *get_line(void)
         return NULL;
     }
     
-    // Resize allocation to actual length (optional optimization)
-    char *resized = realloc(line, line_len + 1);
-    if (resized)
-        line = resized;
+    // Resize allocation to actual length (only if significantly smaller)
+    if (line_len + 1 < alloc_size / 2)
+    {
+        char *resized = my_realloc(line, alloc_size, line_len + 1);
+        if (resized)
+            line = resized;
+    }
     
+    // Null-terminate the string
     line[line_len] = '\0';
     return line;
 }

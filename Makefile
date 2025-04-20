@@ -1,6 +1,6 @@
 NAME = hotrace
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -march=native 
+CFLAGS = -O3 -march=native 
 SRC = main.c hash_table.c utilice.c \
 	./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 OBJS = $(SRC:.c=.o)
