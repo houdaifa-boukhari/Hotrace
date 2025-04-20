@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:51:46 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/18 16:50:01 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 12:57:30 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main()
 {
 	hash_table_t	*ht;
 
-	ht = hash_table_create(2048);
+	ht = hash_table_create(TABLE_SIZE);
 	if (!ht)
 	{
 		write(2, "Error: Could not create hash table\n", 36);

@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:53:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 10:31:32 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 13:01:59 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,53 +21,53 @@
 // sys     0m31.936s
 
 
-// unsigned long int murmur_hash3(const unsigned char *key, unsigned long int len) {
-//     unsigned long int hash = 0;
-//     unsigned int c1 = 0xCC9E2D51, c2 = 0x1B873593;
-//     unsigned long int k = 0;
-//     unsigned int i = 0;
+unsigned long int murmur_hash3(const unsigned char *key, unsigned long int len) {
+    unsigned long int hash = 0;
+    unsigned int c1 = 0xCC9E2D51, c2 = 0x1B873593;
+    unsigned long int k = 0;
+    unsigned int i = 0;
 
-//     // Process the key in chunks of 4 bytes
-//     while (len >= 4) {
-//         // Get the next 4 bytes
-//         k = key[i] | key[i + 1] << 8 | key[i + 2] << 16 | key[i + 3] << 24;
+    // Process the key in chunks of 4 bytes
+    while (len >= 4) {
+        // Get the next 4 bytes
+        k = key[i] | key[i + 1] << 8 | key[i + 2] << 16 | key[i + 3] << 24;
 
-//         // Mix the bytes using the Murmur hash method
-//         k *= c1;
-//         k = (k << 15) | (k >> 17);  // Rotate left by 15
-//         k *= c2;
+        // Mix the bytes using the Murmur hash method
+        k *= c1;
+        k = (k << 15) | (k >> 17);  // Rotate left by 15
+        k *= c2;
 
-//         hash ^= k;
-//         hash = (hash << 13) | (hash >> 19);  // Rotate left by 13
-//         hash = hash * 5 + 0xE6546B64;
+        hash ^= k;
+        hash = (hash << 13) | (hash >> 19);  // Rotate left by 13
+        hash = hash * 5 + 0xE6546B64;
 
-//         i += 4;
-//         len -= 4;
-//     }
+        i += 4;
+        len -= 4;
+    }
 
-//     // Handle the remaining bytes (1-3)
-//     if (len) {
-//         k = 0;
-//         for (int j = len - 1; j >= 0; j--) {
-//             k |= key[i++] << (8 * j);
-//         }
-//         k *= c1;
-//         k = (k << 15) | (k >> 17);  // Rotate left by 15
-//         k *= c2;
+    // Handle the remaining bytes (1-3)
+    if (len) {
+        k = 0;
+        for (int j = len - 1; j >= 0; j--) {
+            k |= key[i++] << (8 * j);
+        }
+        k *= c1;
+        k = (k << 15) | (k >> 17);  // Rotate left by 15
+        k *= c2;
 
-//         hash ^= k;
-//     }
+        hash ^= k;
+    }
 
-//     // Finalize the hash
-//     hash ^= len;
-//     hash = hash ^ (hash >> 16);
-//     hash = hash * 0x85EBCA6B;
-//     hash = hash ^ (hash >> 13);
-//     hash = hash * 0xC2B2AE35;
-//     hash = hash ^ (hash >> 16);
+    // Finalize the hash
+    hash ^= len;
+    hash = hash ^ (hash >> 16);
+    hash = hash * 0x85EBCA6B;
+    hash = hash ^ (hash >> 13);
+    hash = hash * 0xC2B2AE35;
+    hash = hash ^ (hash >> 16);
 
-//     return hash;
-// }
+    return hash;
+}
 
 
 // unsigned long int hash_djb2(const unsigned char *str) {
@@ -98,22 +98,22 @@ unsigned long int hash_djb2(const unsigned char *str)
 	return (hash);
 }
 
-// unsigned long int key_index(const unsigned char *key, unsigned long int size) {
-//     unsigned long int len = 0;
+unsigned long int key_index(const unsigned char *key, unsigned long int size) {
+    unsigned long int len = 0;
 
-//     // Find the length of the key
-//     while (key[len] != '\0') {
-//         len++;
-//     }
+    // Find the length of the key
+    while (key[len] != '\0') {
+        len++;
+    }
 
-//     // Compute the index using MurmurHash3
-//     return (murmur_hash3(key, len) & (size - 1));
-// }
-
-unsigned long int key_index(const unsigned char *key, unsigned long int size)
-{
-	return (hash_djb2(key) & (size - 1));
+    // Compute the index using MurmurHash3
+    return (murmur_hash3(key, len) & (size - 1));
 }
+
+// unsigned long int key_index(const unsigned char *key, unsigned long int size)
+// {
+// 	return (hash_djb2(key) & (size - 1));
+// }
 
 hash_table_t *hash_table_create(unsigned long int size)
 {
@@ -190,7 +190,7 @@ bool search_key(hash_table_t *ht)
 	tmp = NULL;
 	while (1)
 	{
-		line = get_next_line(0);
+		line = get_line();
 		if (!line)
 			break;
 		// struct timeval start, end;
@@ -232,13 +232,13 @@ bool	handle_input(hash_table_t **ht)
 	{
 		key = NULL;
 		value = NULL;
-		char *line = get_next_line(0);
+		char *line = get_line();
 		if (!line)
 			break;
 		if (line[0] == '\n' && no_empty)
 			return (search_key(tmp));
 		key = line;
-		value = get_next_line(0);
+		value = get_line();
 		if (value)
 		{
 			hash_table_set(tmp, key, value);
