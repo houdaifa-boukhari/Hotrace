@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:51:46 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 15:07:46 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:12:17 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	main(void)
 		return (1);
 	}
 	handle_input(&ht);
-	// hash_table_delete(ht);
+	hash_table_delete(ht);
 	return (0);
 }

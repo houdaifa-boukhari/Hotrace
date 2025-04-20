@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:53:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 15:11:21 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:11:48 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,29 +84,26 @@ bool	search_key(t_hash_table *ht)
 
 bool	handle_input(t_hash_table **ht)
 {
-	char			*key;
-	char			*line;
-	char			*value;
-	bool			no_empty;
+	t_input			input;
 	t_hash_table	*tmp;
 
 	tmp = *ht;
-	no_empty = false;
+	input.no_empty = false;
 	while (1)
 	{
-		key = NULL;
-		value = NULL;
-		line = get_line();
-		if (!line)
+		input.key = NULL;
+		input.value = NULL;
+		input.line = get_line();
+		if (!input.line)
 			break ;
-		if (line[0] == '\n' && no_empty)
-			return (search_key(tmp));
-		key = line;
-		value = get_line();
-		if (value)
+		if (input.line[0] == '\n' && input.no_empty)
+			return (free(input.line), search_key(tmp));
+		input.key = input.line;
+		input.value = get_line();
+		if (input.value)
 		{
-			hash_table_set(tmp, key, value);
-			no_empty = true;
+			hash_table_set(tmp, input.key, input.value);
+			input.no_empty = true;
 		}
 	}
 	return (true);

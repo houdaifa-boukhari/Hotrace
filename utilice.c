@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 13:20:52 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 14:58:02 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:35:54 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ void	ft_putstr_fd(char *str, int fd)
 
 	len = ft_strlen(str);
 	if (len > 0)
-	{
-		str[len - 1] = '\0';
 		write(fd, str, len - 1);
-	}
 }
 
 void	*ft_memchr(const void *s, int c, size_t n)
