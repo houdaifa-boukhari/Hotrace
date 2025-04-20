@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 15:02:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 15:03:20 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:07:46 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct hash_table_s
 {
 	unsigned long int	size;
 	t_hash_node			**array;
-}						hash_table_t;
+}						t_hash_table;
 
 typedef struct s_buffer
 {
@@ -50,18 +50,19 @@ typedef struct s_line
 	ssize_t				line_len;
 }						t_line;
 
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+void					*ft_realloc(void *ptr, size_t old_size,
+							size_t new_size);
 void					ft_putstr_fd(char *str, int fd);
-bool					handle_input(hash_table_t **ht);
-hash_table_t			*hash_table_create(unsigned long int size);
+bool					handle_input(t_hash_table **ht);
+t_hash_table			*hash_table_create(unsigned long int size);
 unsigned long int		hash_djb2(const unsigned char *str);
 unsigned long int		key_index(const unsigned char *key,
 							unsigned long int size);
-int						hash_table_set(hash_table_t *ht, char *key,
+int						hash_table_set(t_hash_table *ht, char *key,
 							char *value);
-char					*hash_table_get(const hash_table_t *ht,
+char					*hash_table_get(const t_hash_table *ht,
 							const char *key);
-// void	hash_table_delete(hash_table_t *ht);
+// void	hash_table_delete(t_hash_table *ht);
 char					*get_line(void);
 
 #endif

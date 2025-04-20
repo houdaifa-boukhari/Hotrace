@@ -1,7 +1,7 @@
 NAME = hotrace
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -O3 -march=native 
-SRC = main.c hash_table.c utilice.c utilice1.c
+SRC = main.c hash_table.c utilice.c utilice1.c utilice2.c
 OBJS = $(SRC:.c=.o)
 RM = rm -f
 
