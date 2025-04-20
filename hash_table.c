@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:53:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/18 17:49:43 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/20 10:31:32 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,32 @@
 // }
 
 
-unsigned long int hash_djb2(const unsigned char *str) {
-    unsigned long hash = 5381;
-    char c;
+// unsigned long int hash_djb2(const unsigned char *str) {
+//     unsigned long hash = 5381;
+//     char c;
 
-    while ((c = *str++)) {
-        __asm__ __volatile__ (
-            "leal (%1, %1, 4), %0\n\t"  // hash * 5
-            "leal (%0, %1, 8), %0"      // hash * 33
-            : "=&r" (hash)
-            : "r" (hash), "0" (hash)
-        );
-        hash += c;
-    }
-    return hash;
+//     while ((c = *str++)) {
+//         __asm__ __volatile__ (
+//             "leal (%1, %1, 4), %0\n\t"  // hash * 5
+//             "leal (%0, %1, 8), %0"      // hash * 33
+//             : "=&r" (hash)
+//             : "r" (hash), "0" (hash)
+//         );
+//         hash += c;
+//     }
+//     return hash;
+// }
+
+
+unsigned long int hash_djb2(const unsigned char *str)
+{
+	unsigned long int hash;
+	int c;
+
+	hash = 5381;
+	while ((c = *str++))
+		hash = hash * 33 + c;
+	return (hash);
 }
 
 // unsigned long int key_index(const unsigned char *key, unsigned long int size) {
