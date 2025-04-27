@@ -1,8 +1,3 @@
-Got it — you just want **the final full content** of the `README.md` file, clean and ready to paste.
-
-Here it is:
-
-```markdown
 # HotRace - Fast Key-Value Search Engine
 
 ## Overview
@@ -122,12 +117,7 @@ read(), write(), malloc(), free(), strerror()
 
 ---
 
-*"Don't shut the door, the Blount will take care of it."* - Project Motto
 ```
 
 ---
 
-✅ You can copy **everything above** directly into your `README.md`.
-
-If you want, I can also replace `[your-repo-url]` with your actual GitHub repository link — just tell me! 🚀  
-Want me to personalize it for you a little more? 🎨
