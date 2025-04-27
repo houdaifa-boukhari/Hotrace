@@ -27,8 +27,8 @@ A C implementation of a high-speed key-value storage and retrieval system, desig
 
 ## Installation
 ```bash
-git clone [your-repo-url]
-cd [your-repo]
+git clone https://github.com/houdaifa-boukhari/Hotrace.git
+cd Hotrace
 make
 ```
 
@@ -116,8 +116,3 @@ read(), write(), malloc(), free(), strerror()
 - Efficient memory management is crucial
 
 ---
-
-```
-
----
-
