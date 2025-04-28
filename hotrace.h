@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 15:02:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 17:33:30 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:11:06 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 # define HOTRACE_H
 
 # include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 
 # define TABLE_SIZE 1048576

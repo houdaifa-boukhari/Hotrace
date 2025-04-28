@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 13:20:52 by hel-bouk          #+#    #+#             */
-/*   Updated: 2025/04/20 17:48:24 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:11:48 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,44 +92,3 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 	}
 	return (new_ptr);
 }
-
-// char *get_line(void)
-// {
-//     int done;
-//     char *line;
-//     size_t alloc;
-//     ssize_t line_len;
-//     static char buf[READ_SIZE];
-//     static ssize_t len;
-// 	static ssize_t pos;
-
-// 	len = 0;
-// 	pos = 0;
-// 	done = 0;
-// 	line_len = 0;
-// 	alloc = INITIAL_ALLOC;
-// 	line = (char *)malloc(alloc);
-//     if (!line)
-// 		return (NULL);
-//     while (!done)
-// 	{
-//         if (pos >= len && !refill_buffer(buf, &len, &pos))
-// 			break ;
-//         while (pos < len && !done)
-// 		{
-//             if (!resize_line(&line, &alloc, line_len + 1))
-//                 return (free(line),  NULL);
-//             line[line_len] = buf[pos++];
-//             done = (line[line_len++] == '\n');
-//         }
-//     }
-//     if (line_len == 0)
-//        return (free(line),  NULL);
-//     line[line_len] = '\0';
-//     if (line_len + 1 < alloc / 2) {
-//         char *tmp = ft_realloc(line, alloc, line_len + 1);
-//         if (tmp)
-// 			line = tmp;
-//     }
-//     return (line);
-// }
